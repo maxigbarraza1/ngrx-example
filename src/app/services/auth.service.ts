@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import * as authActions from '../auth/auth.actions';
 
+import * as ingresoEgresoActions from '../ingreso-egreso/ingreso-egreso.actions';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -15,12 +16,17 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
   userSubscriptions!: Subscription;
+  private _localUser: User | null = null;
 
   constructor(
     private fireAuth: AngularFireAuth,
     private firestore: AngularFirestore,
     private store: Store<AppState>
   ) {}
+
+  get user() {
+    return { ...this._localUser };
+  }
 
   initAuthListener() {
     this.fireAuth.authState.subscribe((fuser) => {
@@ -30,11 +36,14 @@ export class AuthService {
           .valueChanges()
           .subscribe((firestoreUser: any) => {
             const user = User.fromFirebase(firestoreUser);
+            this._localUser = user;
             this.store.dispatch(authActions.setUser({ user: user }));
           });
       } else {
         this.userSubscriptions.unsubscribe();
+        this._localUser = null;
         this.store.dispatch(authActions.unsetUser());
+        this.store.dispatch(ingresoEgresoActions.clearItems());
       }
     });
   }
