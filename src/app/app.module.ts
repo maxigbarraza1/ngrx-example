@@ -6,42 +6,21 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { NgChartsModule } from 'ng2-charts';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { appReducers } from './app.reducer';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
-import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
-import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
-import { OrdenIngresosEgresosPipe } from './pipes/orden-ingresos-egresos.pipe';
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    DashboardComponent,
-    IngresoEgresoComponent,
-    EstadisticaComponent,
-    DetalleComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
-    OrdenIngresosEgresosPipe,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    AuthModule,
+    SharedModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -50,7 +29,6 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
-    NgChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

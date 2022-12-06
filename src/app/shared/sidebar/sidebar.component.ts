@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.store
+    this.suscriptions = this.store
       .select('auth')
       .pipe(filter((auth) => auth.user != null))
       .subscribe(({ user }) => {

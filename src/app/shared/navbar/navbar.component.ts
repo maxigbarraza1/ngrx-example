@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store
+    this.suscriptions = this.store
       .select('auth')
       .pipe(filter((auth) => auth.user != null))
       .subscribe(({ user }) => {

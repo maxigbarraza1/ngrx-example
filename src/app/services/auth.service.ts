@@ -40,7 +40,7 @@ export class AuthService {
             this.store.dispatch(authActions.setUser({ user: user }));
           });
       } else {
-        this.userSubscriptions.unsubscribe();
+        this.userSubscriptions?.unsubscribe();
         this._localUser = null;
         this.store.dispatch(authActions.unsetUser());
         this.store.dispatch(ingresoEgresoActions.clearItems());
