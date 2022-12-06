@@ -14,7 +14,6 @@ export class IngresoEgresoService {
   ) {}
 
   initEgresosIngresosListener(uid: string) {
-    console.log('ingresoservice', uid);
     return this.firestore
       .collection(`${uid}/ingresos-egresos/items`)
       .snapshotChanges()

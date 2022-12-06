@@ -49,7 +49,6 @@ export class AuthService {
   }
 
   crearUsuario(nombre: string, email: string, password: string): Promise<any> {
-    console.log(nombre, email, password);
     return this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
